@@ -15,9 +15,13 @@ LINE = (
 
 
 def main() -> None:
+    if not 1 <= len(LINE) <= 200 or "\n" in LINE:
+        raise SystemExit("entry must be one line of 1-200 characters")
     out = Path("/output/entry.txt")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(LINE, encoding="utf-8")
+    if out.read_text(encoding="utf-8") != LINE:
+        raise SystemExit("entry read-back mismatch")
 
 
 if __name__ == "__main__":
